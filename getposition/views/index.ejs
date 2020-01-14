@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Getlocation</title>
+
+    <script type="text/javascript">
+      var watchId;
+      function getPosition(){
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(successPosition);
+        }else{
+          document.findElementById("result").innerHTML = "Your browser does not support geolocation";
+        }
+      }
+
+      function watchPosition(){
+        if(navigator.geolocation){
+          watchId = navigator.geolocation.watchPosition(successPosition);
+        }else{
+          document.findElementById("result").innerHTML = "Your browser does not support geolocation";
+        }
+      }
+
+      function stopWatching(){
+        clearWatch(watchId);
+      }
+
+      function successPosition(position){
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var direction = position.coords.heading;
+
+        document.getElementById("result").innerHTML = "Latitude = " + lat + "<br/> Longitude = " + long;
+      }
+
+    </script>
+
+
+  </head>
+  <body>
+    <div id="result"></div>
+<button type="button" name="button" onclick="getPosition();">Get current position</button>
+<div id="secondResult"></div>
+<button type="button" name="button" onclick="watchPosition();">Start watching location</button>
+<button type="button" name="button" onclick="stopWatching();">Stop tracking location</button>
+  </body>
+</html>
